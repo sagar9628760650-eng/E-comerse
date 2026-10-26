@@ -8,6 +8,71 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="logo.svg">
 <link rel="stylesheet" href="style.css">
+<style>
+/* Zenvora extra styles: image fills, hero slider, category pages */
+/* Online product / category images (replaces emoji icons) */
+.product-thumb, .cat-thumb { overflow: hidden; padding: 0; }
+.product-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cat-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit; }
+
+/* ---- Hero sliding banner ---- */
+.hero-viewport { overflow: hidden; width: 100%; border-radius: inherit; }
+.hero-track { display: flex; transition: transform .6s ease; will-change: transform; }
+.hero-slide { flex: 0 0 100%; min-width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 70px 40px; box-sizing: border-box; }
+.hero-slide .hero-copy { flex: 1 1 50%; }
+.hero-img-wrap { flex: 1 1 45%; display: flex; justify-content: center; }
+.hero-img-wrap img { width: 100%; max-width: 460px; height: 300px; object-fit: cover; border-radius: 20px; box-shadow: 0 12px 30px rgba(0,0,0,.2); }
+.hero-arrow { z-index: 5; }
+.hero-dots { z-index: 5; }
+.hero-dots span { cursor: pointer; }
+@media (max-width: 700px) {
+  .hero-slide { flex-direction: column; text-align: center; padding: 24px 20px 44px; }
+  .hero-img-wrap img { height: 200px; }
+}
+/* Extra styles for category pages (works on top of style.css) */
+.page-banner { max-width: 1200px; margin: 20px auto 0; padding: 28px 32px; border-radius: 16px;
+  background: linear-gradient(135deg, #1a1a2e, #3b2a6b); color: #fff; }
+.page-banner h1 { margin: 6px 0 4px; font-size: 32px; }
+.page-banner p { margin: 0; opacity: .85; }
+.page-banner .crumbs { font-size: 13px; opacity: .8; }
+.page-banner .crumbs a { color: #fff; text-decoration: underline; }
+.sort-select { padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; font-family: inherit; background: #fff; cursor: pointer; }
+.product-thumb { overflow: hidden; padding: 0; }
+.product-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.more-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; }
+.more-tile { display: flex; flex-direction: column; gap: 6px; padding: 22px; border-radius: 14px; background: #fff;
+  border: 1px solid #eee; text-decoration: none; color: inherit; transition: transform .2s, box-shadow .2s; }
+.more-tile:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,0,0,.1); }
+.more-tile .more-ico { font-size: 34px; }
+.more-tile span:nth-child(2) { font-weight: 600; font-size: 17px; }
+.more-tile small { opacity: .65; }
+.site-foot { text-align: center; padding: 28px 16px; margin-top: 30px; opacity: .7; font-size: 14px; }
+.logo a { display: inline-block; }
+
+
+/* category banner photos + More tiles */
+.page-banner { position: relative; overflow: hidden; min-height: 150px; }
+.page-banner > *:not(.banner-img) { position: relative; z-index: 2; }
+.page-banner .banner-img { position: absolute; right: 0; top: 0; width: 55%; height: 100%; object-fit: cover; z-index: 1;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 45%); mask-image: linear-gradient(to right, transparent, #000 45%); opacity: .9; }
+@media (max-width: 700px) { .page-banner .banner-img { width: 100%; opacity: .3; } }
+.more-tile { overflow: hidden; padding: 0 0 18px; }
+.more-tile .more-img { width: 100%; height: 130px; object-fit: cover; display: block; }
+.more-tile span, .more-tile small { padding: 0 18px; }
+.more-tile span:nth-child(2) { margin-top: 10px; }
+.view[hidden]{display:none !important}
+
+.view[hidden]{display:none !important}
+</style>
+<script>
+function zvFb(img){
+  var n=(parseInt(img.getAttribute('data-fb'),10)||0)+1; img.setAttribute('data-fb',n);
+  var t=encodeURIComponent(img.alt||'Zenvora'), kw=img.getAttribute('data-kw');
+  if(n===1) img.src = kw ? 'https://loremflickr.com/500/500/'+kw+'/all' : 'https://picsum.photos/seed/'+t+'/600/450';
+  else if(n===2) img.src='https://placehold.co/600x450?text='+t;
+  else img.onerror=null;
+}
+</script>
 </head>
 <body>
 
@@ -18,55 +83,89 @@
 </div>
 
 <header>
-  <div class="logo">
-    <img src="logo.png" alt="Zenvora" class="logo-img">
-  </div>
-
+  <div class="logo"><a href="#home"><img src="logo.png" alt="Zenvora" class="logo-img"></a></div>
   <div class="search-wrap">
     <div class="cat-select">▦ All Categories ▾</div>
     <input type="text" placeholder="Search for products, brands and more...">
     <button class="search-btn">🔍</button>
   </div>
-
   <div class="header-actions">
     <button class="action"><span class="ico">♡</span>Wishlist</button>
     <button class="action"><span class="ico">🛒</span>Cart<span class="cart-badge">3</span></button>
-    <button class="action"><span class="ico">👤</span>Login</button href="">
+    <button class="action"><span class="ico">👤</span>Login</button>
   </div>
 </header>
 
 <nav class="catnav">
-  <a href="#" class="active">Home</a>
-  <a href="#">Fashion</a>
-  <a href="#">Electronics</a>
-  <a href="#">Home &amp; Living</a>
-  <a href="#">Beauty</a>
-  <a href="#">Sports</a>
-  <a href="#">Groceries</a>
-  <a href="#">Toys &amp; Baby</a>
-  <a href="#">More</a>
+  <a href="#home" class="active">Home</a>
+  <a href="#fashion">Fashion</a>
+  <a href="#electronics">Electronics</a>
+  <a href="#home-living">Home &amp; Living</a>
+  <a href="#beauty">Beauty</a>
+  <a href="#sports">Sports</a>
+  <a href="#groceries">Groceries</a>
+  <a href="#toys-baby">Toys &amp; Baby</a>
+  <a href="#more">More</a>
 </nav>
 
+<div class="view" id="view-home">
 <section class="hero-section">
   <div class="hero">
     <button class="hero-arrow left" aria-label="Previous slide">‹</button>
-
-    <div class="hero-copy">
-      <h1>Everything You Want.<br><span class="line2">One Place.</span></h1>
-      <p>Top products, best deals and unbeatable offers – all in Zenvora.</p>
-      <button class="hero-cta">Shop Now →</button>
-    </div>
-
-    <div class="hero-visual">
-      <div class="podium"></div>
-      <div class="product-cluster">
-        <div class="prod headphones">🎧</div>
-        <div class="prod watch">⌚</div>
-        <div class="prod bag">👜</div>
-        <div class="prod plant">🪴</div>
+    <div class="hero-viewport">
+      <div class="hero-track">
+      <div class="hero-slide">
+        <div class="hero-copy">
+          <h1>Everything You Want.<br><span class="line2">One Place.</span></h1>
+          <p>Top products, best deals and unbeatable offers – all in Zenvora.</p>
+          <button class="hero-cta">Shop Now →</button>
+        </div>
+        <div class="hero-img-wrap">
+          <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=700&q=80&auto=format&fit=crop" alt="Shopping" onerror="zvFb(this)">
+        </div>
+      </div>
+      <div class="hero-slide">
+        <div class="hero-copy">
+          <h1>Sound That<br><span class="line2">Moves You.</span></h1>
+          <p>Wireless earbuds and headphones at up to 40% off.</p>
+          <button class="hero-cta">Shop Now →</button>
+        </div>
+        <div class="hero-img-wrap">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=700&q=80&auto=format&fit=crop" alt="Headphones" loading="lazy" onerror="zvFb(this)">
+        </div>
+      </div>
+      <div class="hero-slide">
+        <div class="hero-copy">
+          <h1>Smart Watches.<br><span class="line2">Smarter Deals.</span></h1>
+          <p>Track fitness in style with the latest smartwatches.</p>
+          <button class="hero-cta">Shop Now →</button>
+        </div>
+        <div class="hero-img-wrap">
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=700&q=80&auto=format&fit=crop" alt="Smartwatch" loading="lazy" onerror="zvFb(this)">
+        </div>
+      </div>
+      <div class="hero-slide">
+        <div class="hero-copy">
+          <h1>Carry Your<br><span class="line2">Style.</span></h1>
+          <p>Trendy handbags and accessories starting at ₹999.</p>
+          <button class="hero-cta">Shop Now →</button>
+        </div>
+        <div class="hero-img-wrap">
+          <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=700&q=80&auto=format&fit=crop" alt="Handbag" loading="lazy" onerror="zvFb(this)">
+        </div>
+      </div>
+      <div class="hero-slide">
+        <div class="hero-copy">
+          <h1>Run Further.<br><span class="line2">Pay Less.</span></h1>
+          <p>Top sports shoes with flat 35% off this week.</p>
+          <button class="hero-cta">Shop Now →</button>
+        </div>
+        <div class="hero-img-wrap">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700&q=80&auto=format&fit=crop" alt="Shoes" loading="lazy" onerror="zvFb(this)">
+        </div>
+      </div>
       </div>
     </div>
-
     <button class="hero-arrow right" aria-label="Next slide">›</button>
     <div class="hero-dots">
       <span class="active"></span><span></span><span></span><span></span><span></span>
@@ -75,38 +174,26 @@
 </section>
 
 <section class="badges">
-  <div class="badge-item b1">
-    <div class="bi-icon">🚚</div>
-    <div><h4>Free Delivery</h4><p>On orders above ₹499</p></div>
-  </div>
-  <div class="badge-item b2">
-    <div class="bi-icon">🛡️</div>
-    <div><h4>Secure Payment</h4><p>100% Protected</p></div>
-  </div>
-  <div class="badge-item b3">
-    <div class="bi-icon">↩️</div>
-    <div><h4>Easy Returns</h4><p>Within 7 days</p></div>
-  </div>
-  <div class="badge-item b4">
-    <div class="bi-icon">🎧</div>
-    <div><h4>24/7 Support</h4><p>We're here to help</p></div>
-  </div>
+  <div class="badge-item b1"><div class="bi-icon">🚚</div><div><h4>Free Delivery</h4><p>On orders above ₹499</p></div></div>
+  <div class="badge-item b2"><div class="bi-icon">🛡️</div><div><h4>Secure Payment</h4><p>100% Protected</p></div></div>
+  <div class="badge-item b3"><div class="bi-icon">↩️</div><div><h4>Easy Returns</h4><p>Within 7 days</p></div></div>
+  <div class="badge-item b4"><div class="bi-icon">🎧</div><div><h4>24/7 Support</h4><p>We're here to help</p></div></div>
 </section>
 
 <section class="section">
   <div class="section-head">
     <h2>Shop by Category</h2>
-    <a href="#">View All ›</a>
+    <a href="#more">View All ›</a>
   </div>
   <div class="category-grid">
-    <div class="cat-card"><div class="cat-thumb">👕</div><span>Fashion</span></div>
-    <div class="cat-card"><div class="cat-thumb">🎧</div><span>Electronics</span></div>
-    <div class="cat-card"><div class="cat-thumb">🛋️</div><span>Home &amp; Living</span></div>
-    <div class="cat-card"><div class="cat-thumb">💄</div><span>Beauty</span></div>
-    <div class="cat-card"><div class="cat-thumb">🏀</div><span>Sports</span></div>
-    <div class="cat-card"><div class="cat-thumb">🥦</div><span>Groceries</span></div>
-    <div class="cat-card"><div class="cat-thumb">⌚</div><span>Accessories</span></div>
-    <div class="cat-card"><div class="cat-thumb">▦</div><span>More</span></div>
+    <div class="cat-card" style="cursor:pointer" onclick=\"location.hash='fashion'\"><div class="cat-thumb"><img src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=300&q=80&auto=format&fit=crop" alt="Fashion" loading="lazy" onerror="zvFb(this)"></div><span>Fashion</span></div>
+    <div class="cat-card" style="cursor:pointer" onclick=\"location.hash='electronics'\"><div class="cat-thumb"><img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?w=300&q=80&auto=format&fit=crop" alt="Electronics" loading="lazy" onerror="zvFb(this)"></div><span>Electronics</span></div>
+    <div class="cat-card" style="cursor:pointer" onclick=\"location.hash='home-living'\"><div class="cat-thumb"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&q=80&auto=format&fit=crop" alt="Home and Living" loading="lazy" onerror="zvFb(this)"></div><span>Home &amp; Living</span></div>
+    <div class="cat-card" style="cursor:pointer" onclick=\"location.hash='beauty'\"><div class="cat-thumb"><img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=300&q=80&auto=format&fit=crop" alt="Beauty" loading="lazy" onerror="zvFb(this)"></div><span>Beauty</span></div>
+    <div class="cat-card" style="cursor:pointer" onclick=\"location.hash='sports'\"><div class="cat-thumb"><img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=300&q=80&auto=format&fit=crop" alt="Sports" loading="lazy" onerror="zvFb(this)"></div><span>Sports</span></div>
+    <div class="cat-card" style="cursor:pointer" onclick=\"location.hash='groceries'\"><div class="cat-thumb"><img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=300&q=80&auto=format&fit=crop" alt="Groceries" loading="lazy" onerror="zvFb(this)"></div><span>Groceries</span></div>
+    <div class="cat-card" style="cursor:pointer" onclick=\"location.hash='accessories'\"><div class="cat-thumb"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&q=80&auto=format&fit=crop" alt="Accessories" loading="lazy" onerror="zvFb(this)"></div><span>Accessories</span></div>
+    <div class="cat-card" style="cursor:pointer" onclick=\"location.hash='more'\"><div class="cat-thumb">▦</div><span>More</span></div>
   </div>
 </section>
 
@@ -116,51 +203,1033 @@
     <a href="#">View All ›</a>
   </div>
   <div class="product-grid">
+
     <div class="product-card" data-price="1299">
       <span class="discount-badge">-40%</span>
       <button class="wish-btn">♡</button>
-      <div class="product-thumb">🎧</div>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80&auto=format&fit=crop" alt="boAt Airdopes 131" loading="lazy" onerror="zvFb(this)"></div>
       <div class="product-info">
         <div class="p-name">boAt Airdopes 131</div>
         <div class="price-row"><span class="now">₹1,299</span><span class="was">₹2,199</span></div>
         <button class="add-cart-btn">Add to Cart</button>
       </div>
     </div>
+
     <div class="product-card" data-price="2999">
       <span class="discount-badge">-25%</span>
       <button class="wish-btn">♡</button>
-      <div class="product-thumb">⌚</div>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80&auto=format&fit=crop" alt="Noise ColorFit Pro 4" loading="lazy" onerror="zvFb(this)"></div>
       <div class="product-info">
         <div class="p-name">Noise ColorFit Pro 4</div>
         <div class="price-row"><span class="now">₹2,999</span><span class="was">₹3,999</span></div>
         <button class="add-cart-btn">Add to Cart</button>
       </div>
     </div>
+
     <div class="product-card" data-price="1749">
       <span class="discount-badge">-30%</span>
       <button class="wish-btn">♡</button>
-      <div class="product-thumb">👜</div>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500&q=80&auto=format&fit=crop" alt="Lavie Women's Handbag" loading="lazy" onerror="zvFb(this)"></div>
       <div class="product-info">
         <div class="p-name">Lavie Women's Handbag</div>
         <div class="price-row"><span class="now">₹1,749</span><span class="was">₹2,499</span></div>
         <button class="add-cart-btn">Add to Cart</button>
       </div>
     </div>
+
     <div class="product-card" data-price="899">
       <span class="discount-badge">-35%</span>
       <button class="wish-btn">♡</button>
-      <div class="product-thumb">👟</div>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80&auto=format&fit=crop" alt="Sparx Running Shoes" loading="lazy" onerror="zvFb(this)"></div>
       <div class="product-info">
         <div class="p-name">Sparx Running Shoes</div>
         <div class="price-row"><span class="now">₹899</span><span class="was">₹1,399</span></div>
         <button class="add-cart-btn">Add to Cart</button>
       </div>
     </div>
+
   </div>
 </section>
 
-<div class="toast" id="toast"></div>
 
+</div>
+
+<div class="view" id="view-fashion" hidden>
+<section class="page-banner">
+  <img class="banner-img" src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=900&q=80&auto=format&fit=crop" alt="Fashion banner" onerror="zvFb(this)">
+  <div class="crumbs"><a href="#home">Home</a> › Fashion</div>
+  <h1>👕 Fashion</h1>
+  <p>Trending styles for men, women and kids</p>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Fashion — 8 products</h2>
+    <select class="sort-select">
+      <option value="default">Sort: Featured</option>
+      <option value="low">Price: Low to High</option>
+      <option value="high">Price: High to Low</option>
+    </select>
+  </div>
+  <div class="product-grid" data-grid="1">
+    <div class="product-card" data-price="499">
+      <span class="discount-badge">-50%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80&auto=format&fit=crop" data-kw="tshirt,men" alt="Men's Cotton T-Shirt" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Men's Cotton T-Shirt</div>
+        <div class="price-row"><span class="now">₹499</span><span class="was">₹999</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="799">
+      <span class="discount-badge">-50%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=500&q=80&auto=format&fit=crop" data-kw="kurti,indian" alt="Women's Floral Kurti" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Women's Floral Kurti</div>
+        <div class="price-row"><span class="now">₹799</span><span class="was">₹1,599</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="1199">
+      <span class="discount-badge">-45%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&q=80&auto=format&fit=crop" data-kw="jeans,denim" alt="Slim Fit Denim Jeans" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Slim Fit Denim Jeans</div>
+        <div class="price-row"><span class="now">₹1,199</span><span class="was">₹2,199</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="899">
+      <span class="discount-badge">-47%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&q=80&auto=format&fit=crop" data-kw="shirt,formal" alt="Men's Formal Shirt" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Men's Formal Shirt</div>
+        <div class="price-row"><span class="now">₹899</span><span class="was">₹1,699</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="1099">
+      <span class="discount-badge">-45%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500&q=80&auto=format&fit=crop" data-kw="dress,woman" alt="Women's Summer Dress" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Women's Summer Dress</div>
+        <div class="price-row"><span class="now">₹1,099</span><span class="was">₹1,999</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="1299">
+      <span class="discount-badge">-43%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500&q=80&auto=format&fit=crop" data-kw="hoodie,sweatshirt" alt="Hooded Sweatshirt" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Hooded Sweatshirt</div>
+        <div class="price-row"><span class="now">₹1,299</span><span class="was">₹2,299</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="1499">
+      <span class="discount-badge">-40%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80&auto=format&fit=crop" data-kw="sneakers,shoes" alt="Casual Sneakers" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Casual Sneakers</div>
+        <div class="price-row"><span class="now">₹1,499</span><span class="was">₹2,499</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="1399">
+      <span class="discount-badge">-46%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=500&q=80&auto=format&fit=crop" data-kw="kurta,indian" alt="Ethnic Kurta Set" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Ethnic Kurta Set</div>
+        <div class="price-row"><span class="now">₹1,399</span><span class="was">₹2,599</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="view" id="view-electronics" hidden>
+<section class="page-banner">
+  <img class="banner-img" src="https://images.unsplash.com/photo-1498049794561-7780e7231661?w=900&q=80&auto=format&fit=crop" alt="Electronics banner" onerror="zvFb(this)">
+  <div class="crumbs"><a href="#home">Home</a> › Electronics</div>
+  <h1>🎧 Electronics</h1>
+  <p>Gadgets and gear at unbeatable prices</p>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Electronics — 8 products</h2>
+    <select class="sort-select">
+      <option value="default">Sort: Featured</option>
+      <option value="low">Price: Low to High</option>
+      <option value="high">Price: High to Low</option>
+    </select>
+  </div>
+  <div class="product-grid" data-grid="1">
+    <div class="product-card" data-price="1299">
+      <span class="discount-badge">-41%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&q=80&auto=format&fit=crop" data-kw="earbuds,wireless" alt="boAt Airdopes 131" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">boAt Airdopes 131</div>
+        <div class="price-row"><span class="now">₹1,299</span><span class="was">₹2,199</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="2999">
+      <span class="discount-badge">-25%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500&q=80&auto=format&fit=crop" data-kw="smartwatch,wrist" alt="Noise ColorFit Pro 4" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Noise ColorFit Pro 4</div>
+        <div class="price-row"><span class="now">₹2,999</span><span class="was">₹3,999</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="1799">
+      <span class="discount-badge">-40%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&q=80&auto=format&fit=crop" data-kw="bluetooth,speaker" alt="Bluetooth Speaker" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Bluetooth Speaker</div>
+        <div class="price-row"><span class="now">₹1,799</span><span class="was">₹2,999</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="499">
+      <span class="discount-badge">-44%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500&q=80&auto=format&fit=crop" data-kw="wireless,mouse" alt="Wireless Mouse" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Wireless Mouse</div>
+        <div class="price-row"><span class="now">₹499</span><span class="was">₹899</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="1399">
+      <span class="discount-badge">-39%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500&q=80&auto=format&fit=crop" data-kw="powerbank,charger" alt="Power Bank 20000mAh" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Power Bank 20000mAh</div>
+        <div class="price-row"><span class="now">₹1,399</span><span class="was">₹2,299</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="2199">
+      <span class="discount-badge">-37%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&q=80&auto=format&fit=crop" data-kw="keyboard,mechanical" alt="Mechanical Keyboard" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Mechanical Keyboard</div>
+        <div class="price-row"><span class="now">₹2,199</span><span class="was">₹3,499</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="1999">
+      <span class="discount-badge">-43%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80&auto=format&fit=crop" data-kw="headphones,overear" alt="Over-Ear Headphones" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Over-Ear Headphones</div>
+        <div class="price-row"><span class="now">₹1,999</span><span class="was">₹3,499</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="599">
+      <span class="discount-badge">-40%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&q=80&auto=format&fit=crop" data-kw="led,bulb" alt="Smart LED Bulb Pack" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Smart LED Bulb Pack</div>
+        <div class="price-row"><span class="now">₹599</span><span class="was">₹999</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="view" id="view-home-living" hidden>
+<section class="page-banner">
+  <img class="banner-img" src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&q=80&auto=format&fit=crop" alt="Home and Living banner" onerror="zvFb(this)">
+  <div class="crumbs"><a href="#home">Home</a> › Home &amp; Living</div>
+  <h1>🛋️ Home &amp; Living</h1>
+  <p>Make your space feel like home</p>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Home &amp; Living — 8 products</h2>
+    <select class="sort-select">
+      <option value="default">Sort: Featured</option>
+      <option value="low">Price: Low to High</option>
+      <option value="high">Price: High to Low</option>
+    </select>
+  </div>
+  <div class="product-grid" data-grid="1">
+    <div class="product-card" data-price="799">
+      <span class="discount-badge">-47%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500&q=80&auto=format&fit=crop" data-kw="bedsheet,bedroom" alt="Cotton Double Bedsheet" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Cotton Double Bedsheet</div>
+        <div class="price-row"><span class="now">₹799</span><span class="was">₹1,499</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="1099">
+      <span class="discount-badge">-42%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500&q=80&auto=format&fit=crop" data-kw="table,lamp" alt="Ceramic Table Lamp" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Ceramic Table Lamp</div>
+        <div class="price-row"><span class="now">₹1,099</span><span class="was">₹1,899</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="599">
+      <span class="discount-badge">-40%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?w=500&q=80&auto=format&fit=crop" data-kw="wall,clock" alt="Wall Clock" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Wall Clock</div>
+        <div class="price-row"><span class="now">₹599</span><span class="was">₹999</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="449">
+      <span class="discount-badge">-50%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500&q=80&auto=format&fit=crop" data-kw="cushion,sofa" alt="Cushion Cover Set" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Cushion Cover Set</div>
+        <div class="price-row"><span class="now">₹449</span><span class="was">₹899</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="349">
+      <span class="discount-badge">-50%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=500&q=80&auto=format&fit=crop" data-kw="plant,pot" alt="Decorative Plant Pot" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Decorative Plant Pot</div>
+        <div class="price-row"><span class="now">₹349</span><span class="was">₹699</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="1899">
+      <span class="discount-badge">-41%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1603199506016-b9a594b593c0?w=500&q=80&auto=format&fit=crop" data-kw="dinnerware,plates" alt="Dinner Set 24 Pcs" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Dinner Set 24 Pcs</div>
+        <div class="price-row"><span class="now">₹1,899</span><span class="was">₹3,199</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="999">
+      <span class="discount-badge">-44%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?w=500&q=80&auto=format&fit=crop" data-kw="curtains,window" alt="Curtains Pair" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Curtains Pair</div>
+        <div class="price-row"><span class="now">₹999</span><span class="was">₹1,799</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="699">
+      <span class="discount-badge">-46%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500&q=80&auto=format&fit=crop" data-kw="basket,storage" alt="Storage Basket Set" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Storage Basket Set</div>
+        <div class="price-row"><span class="now">₹699</span><span class="was">₹1,299</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="view" id="view-beauty" hidden>
+<section class="page-banner">
+  <img class="banner-img" src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=900&q=80&auto=format&fit=crop" alt="Beauty banner" onerror="zvFb(this)">
+  <div class="crumbs"><a href="#home">Home</a> › Beauty</div>
+  <h1>💄 Beauty</h1>
+  <p>Skincare, makeup and grooming essentials</p>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Beauty — 8 products</h2>
+    <select class="sort-select">
+      <option value="default">Sort: Featured</option>
+      <option value="low">Price: Low to High</option>
+      <option value="high">Price: High to Low</option>
+    </select>
+  </div>
+  <div class="product-grid" data-grid="1">
+    <div class="product-card" data-price="349">
+      <span class="discount-badge">-50%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=500&q=80&auto=format&fit=crop" data-kw="lipstick,makeup" alt="Matte Lipstick" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Matte Lipstick</div>
+        <div class="price-row"><span class="now">₹349</span><span class="was">₹699</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="599">
+      <span class="discount-badge">-50%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500&q=80&auto=format&fit=crop" data-kw="serum,skincare" alt="Vitamin C Face Serum" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Vitamin C Face Serum</div>
+        <div class="price-row"><span class="now">₹599</span><span class="was">₹1,199</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="399">
+      <span class="discount-badge">-43%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500&q=80&auto=format&fit=crop" data-kw="sunscreen,bottle" alt="Sunscreen SPF 50" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Sunscreen SPF 50</div>
+        <div class="price-row"><span class="now">₹399</span><span class="was">₹699</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="699">
+      <span class="discount-badge">-46%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500&q=80&auto=format&fit=crop" data-kw="shampoo,haircare" alt="Hair Care Combo" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Hair Care Combo</div>
+        <div class="price-row"><span class="now">₹699</span><span class="was">₹1,299</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="799">
+      <span class="discount-badge">-47%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=500&q=80&auto=format&fit=crop" data-kw="eyeshadow,palette" alt="Eyeshadow Palette" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Eyeshadow Palette</div>
+        <div class="price-row"><span class="now">₹799</span><span class="was">₹1,499</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="449">
+      <span class="discount-badge">-44%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=500&q=80&auto=format&fit=crop" data-kw="face,cream" alt="Moisturising Cream" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Moisturising Cream</div>
+        <div class="price-row"><span class="now">₹449</span><span class="was">₹799</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="999">
+      <span class="discount-badge">-50%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=500&q=80&auto=format&fit=crop" data-kw="perfume,bottle" alt="Perfume 100ml" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Perfume 100ml</div>
+        <div class="price-row"><span class="now">₹999</span><span class="was">₹1,999</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="899">
+      <span class="discount-badge">-44%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1621607512214-68297480165e?w=500&q=80&auto=format&fit=crop" data-kw="beard,grooming" alt="Beard Grooming Kit" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Beard Grooming Kit</div>
+        <div class="price-row"><span class="now">₹899</span><span class="was">₹1,599</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="view" id="view-sports" hidden>
+<section class="page-banner">
+  <img class="banner-img" src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=900&q=80&auto=format&fit=crop" alt="Sports banner" onerror="zvFb(this)">
+  <div class="crumbs"><a href="#home">Home</a> › Sports</div>
+  <h1>🏀 Sports</h1>
+  <p>Gear up for your next game or workout</p>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Sports — 8 products</h2>
+    <select class="sort-select">
+      <option value="default">Sort: Featured</option>
+      <option value="low">Price: Low to High</option>
+      <option value="high">Price: High to Low</option>
+    </select>
+  </div>
+  <div class="product-grid" data-grid="1">
+    <div class="product-card" data-price="899">
+      <span class="discount-badge">-36%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=500&q=80&auto=format&fit=crop" data-kw="running,shoes" alt="Sparx Running Shoes" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Sparx Running Shoes</div>
+        <div class="price-row"><span class="now">₹899</span><span class="was">₹1,399</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="599">
+      <span class="discount-badge">-45%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500&q=80&auto=format&fit=crop" data-kw="yoga,mat" alt="Yoga Mat" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Yoga Mat</div>
+        <div class="price-row"><span class="now">₹599</span><span class="was">₹1,099</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="799">
+      <span class="discount-badge">-38%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=500&q=80&auto=format&fit=crop" data-kw="basketball,ball" alt="Basketball Size 7" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Basketball Size 7</div>
+        <div class="price-row"><span class="now">₹799</span><span class="was">₹1,299</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="1599">
+      <span class="discount-badge">-43%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=500&q=80&auto=format&fit=crop" data-kw="cricket,bat" alt="Cricket Bat" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Cricket Bat</div>
+        <div class="price-row"><span class="now">₹1,599</span><span class="was">₹2,799</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="1299">
+      <span class="discount-badge">-41%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=500&q=80&auto=format&fit=crop" data-kw="dumbbell,weights" alt="Dumbbell Set 10kg" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Dumbbell Set 10kg</div>
+        <div class="price-row"><span class="now">₹1,299</span><span class="was">₹2,199</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="999">
+      <span class="discount-badge">-41%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=500&q=80&auto=format&fit=crop" data-kw="badminton,racket" alt="Badminton Racket Pair" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Badminton Racket Pair</div>
+        <div class="price-row"><span class="now">₹999</span><span class="was">₹1,699</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="699">
+      <span class="discount-badge">-42%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=500&q=80&auto=format&fit=crop" data-kw="football,ball" alt="Football Size 5" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Football Size 5</div>
+        <div class="price-row"><span class="now">₹699</span><span class="was">₹1,199</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="299">
+      <span class="discount-badge">-50%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500&q=80&auto=format&fit=crop" data-kw="sports,bottle" alt="Sports Water Bottle" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Sports Water Bottle</div>
+        <div class="price-row"><span class="now">₹299</span><span class="was">₹599</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="view" id="view-groceries" hidden>
+<section class="page-banner">
+  <img class="banner-img" src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=900&q=80&auto=format&fit=crop" alt="Groceries banner" onerror="zvFb(this)">
+  <div class="crumbs"><a href="#home">Home</a> › Groceries</div>
+  <h1>🥦 Groceries</h1>
+  <p>Fresh and pantry staples delivered fast</p>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Groceries — 8 products</h2>
+    <select class="sort-select">
+      <option value="default">Sort: Featured</option>
+      <option value="low">Price: Low to High</option>
+      <option value="high">Price: High to Low</option>
+    </select>
+  </div>
+  <div class="product-grid" data-grid="1">
+    <div class="product-card" data-price="299">
+      <span class="discount-badge">-33%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500&q=80&auto=format&fit=crop" data-kw="vegetables,fresh" alt="Fresh Vegetables Box" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Fresh Vegetables Box</div>
+        <div class="price-row"><span class="now">₹299</span><span class="was">₹449</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="549">
+      <span class="discount-badge">-31%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&q=80&auto=format&fit=crop" data-kw="rice,grain" alt="Basmati Rice 5kg" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Basmati Rice 5kg</div>
+        <div class="price-row"><span class="now">₹549</span><span class="was">₹799</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="499">
+      <span class="discount-badge">-38%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=500&q=80&auto=format&fit=crop" data-kw="olive,oil" alt="Cold Pressed Olive Oil" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Cold Pressed Olive Oil</div>
+        <div class="price-row"><span class="now">₹499</span><span class="was">₹799</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="599">
+      <span class="discount-badge">-40%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=500&q=80&auto=format&fit=crop" data-kw="dryfruits,almonds" alt="Mixed Dry Fruits 500g" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Mixed Dry Fruits 500g</div>
+        <div class="price-row"><span class="now">₹599</span><span class="was">₹999</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="349">
+      <span class="discount-badge">-42%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=500&q=80&auto=format&fit=crop" data-kw="honey,jar" alt="Organic Honey 500g" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Organic Honey 500g</div>
+        <div class="price-row"><span class="now">₹349</span><span class="was">₹599</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="399">
+      <span class="discount-badge">-39%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?w=500&q=80&auto=format&fit=crop" data-kw="tea,leaves" alt="Tea Leaves 1kg" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Tea Leaves 1kg</div>
+        <div class="price-row"><span class="now">₹399</span><span class="was">₹649</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="199">
+      <span class="discount-badge">-43%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1517673400267-0251440c45dc?w=500&q=80&auto=format&fit=crop" data-kw="oats,breakfast" alt="Breakfast Oats 1kg" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Breakfast Oats 1kg</div>
+        <div class="price-row"><span class="now">₹199</span><span class="was">₹349</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="449">
+      <span class="discount-badge">-36%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=500&q=80&auto=format&fit=crop" data-kw="fruits,basket" alt="Fresh Fruit Basket" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Fresh Fruit Basket</div>
+        <div class="price-row"><span class="now">₹449</span><span class="was">₹699</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="view" id="view-toys-baby" hidden>
+<section class="page-banner">
+  <img class="banner-img" src="https://images.unsplash.com/photo-1558060370-d644479cb6f7?w=900&q=80&auto=format&fit=crop" alt="Toys and Baby banner" onerror="zvFb(this)">
+  <div class="crumbs"><a href="#home">Home</a> › Toys &amp; Baby</div>
+  <h1>🧸 Toys &amp; Baby</h1>
+  <p>Fun, safe and loved by little ones</p>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Toys &amp; Baby — 8 products</h2>
+    <select class="sort-select">
+      <option value="default">Sort: Featured</option>
+      <option value="low">Price: Low to High</option>
+      <option value="high">Price: High to Low</option>
+    </select>
+  </div>
+  <div class="product-grid" data-grid="1">
+    <div class="product-card" data-price="699">
+      <span class="discount-badge">-46%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=500&q=80&auto=format&fit=crop" data-kw="lego,blocks" alt="Building Blocks 200 Pcs" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Building Blocks 200 Pcs</div>
+        <div class="price-row"><span class="now">₹699</span><span class="was">₹1,299</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="499">
+      <span class="discount-badge">-44%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1559454403-b8fb88521f11?w=500&q=80&auto=format&fit=crop" data-kw="teddy,bear" alt="Soft Teddy Bear" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Soft Teddy Bear</div>
+        <div class="price-row"><span class="now">₹499</span><span class="was">₹899</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="999">
+      <span class="discount-badge">-44%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=500&q=80&auto=format&fit=crop" data-kw="toy,car" alt="Remote Control Car" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Remote Control Car</div>
+        <div class="price-row"><span class="now">₹999</span><span class="was">₹1,799</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="3999">
+      <span class="discount-badge">-38%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1591088398332-8a7791972843?w=500&q=80&auto=format&fit=crop" data-kw="baby,stroller" alt="Baby Stroller" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Baby Stroller</div>
+        <div class="price-row"><span class="now">₹3,999</span><span class="was">₹6,499</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="899">
+      <span class="discount-badge">-40%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=500&q=80&auto=format&fit=crop" data-kw="baby,care" alt="Baby Care Gift Set" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Baby Care Gift Set</div>
+        <div class="price-row"><span class="now">₹899</span><span class="was">₹1,499</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="349">
+      <span class="discount-badge">-50%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1606503153255-59d8b8b82176?w=500&q=80&auto=format&fit=crop" data-kw="jigsaw,puzzle" alt="Kids Puzzle Set" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Kids Puzzle Set</div>
+        <div class="price-row"><span class="now">₹349</span><span class="was">₹699</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="449">
+      <span class="discount-badge">-44%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500&q=80&auto=format&fit=crop" data-kw="crayons,art" alt="Art &amp; Craft Kit" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Art &amp; Craft Kit</div>
+        <div class="price-row"><span class="now">₹449</span><span class="was">₹799</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="299">
+      <span class="discount-badge">-46%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1584515933487-779824d29309?w=500&q=80&auto=format&fit=crop" data-kw="baby,bottle" alt="Baby Feeding Bottle" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Baby Feeding Bottle</div>
+        <div class="price-row"><span class="now">₹299</span><span class="was">₹549</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="view" id="view-accessories" hidden>
+<section class="page-banner">
+  <img class="banner-img" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=900&q=80&auto=format&fit=crop" alt="Accessories banner" onerror="zvFb(this)">
+  <div class="crumbs"><a href="#home">Home</a> › Accessories</div>
+  <h1>⌚ Accessories</h1>
+  <p>Watches, bags, sunglasses and more</p>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Accessories — 8 products</h2>
+    <select class="sort-select">
+      <option value="default">Sort: Featured</option>
+      <option value="low">Price: Low to High</option>
+      <option value="high">Price: High to Low</option>
+    </select>
+  </div>
+  <div class="product-grid" data-grid="1">
+    <div class="product-card" data-price="1499">
+      <span class="discount-badge">-46%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500&q=80&auto=format&fit=crop" data-kw="wristwatch,analog" alt="Analog Wrist Watch" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Analog Wrist Watch</div>
+        <div class="price-row"><span class="now">₹1,499</span><span class="was">₹2,799</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="1749">
+      <span class="discount-badge">-30%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500&q=80&auto=format&fit=crop" data-kw="handbag,women" alt="Lavie Women's Handbag" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Lavie Women's Handbag</div>
+        <div class="price-row"><span class="now">₹1,749</span><span class="was">₹2,499</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="699">
+      <span class="discount-badge">-46%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&q=80&auto=format&fit=crop" data-kw="sunglasses,aviator" alt="Aviator Sunglasses" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Aviator Sunglasses</div>
+        <div class="price-row"><span class="now">₹699</span><span class="was">₹1,299</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="599">
+      <span class="discount-badge">-45%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&q=80&auto=format&fit=crop" data-kw="leather,wallet" alt="Leather Wallet" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Leather Wallet</div>
+        <div class="price-row"><span class="now">₹599</span><span class="was">₹1,099</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="1199">
+      <span class="discount-badge">-45%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80&auto=format&fit=crop" data-kw="backpack,bag" alt="Backpack 30L" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Backpack 30L</div>
+        <div class="price-row"><span class="now">₹1,199</span><span class="was">₹2,199</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="449">
+      <span class="discount-badge">-50%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1624222247344-550fb60583dc?w=500&q=80&auto=format&fit=crop" data-kw="leather,belt" alt="Leather Belt" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Leather Belt</div>
+        <div class="price-row"><span class="now">₹449</span><span class="was">₹899</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="799">
+      <span class="discount-badge">-47%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&q=80&auto=format&fit=crop" data-kw="silver,bracelet" alt="Silver Bracelet" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Silver Bracelet</div>
+        <div class="price-row"><span class="now">₹799</span><span class="was">₹1,499</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-price="1399">
+      <span class="discount-badge">-44%</span>
+      <button class="wish-btn">♡</button>
+      <div class="product-thumb"><img src="https://images.unsplash.com/photo-1553531384-cc64ac80f931?w=500&q=80&auto=format&fit=crop" data-kw="duffel,bag" alt="Travel Duffel Bag" loading="lazy" onerror="zvFb(this)"></div>
+      <div class="product-info">
+        <div class="p-name">Travel Duffel Bag</div>
+        <div class="price-row"><span class="now">₹1,399</span><span class="was">₹2,499</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="view" id="view-more" hidden>
+<section class="page-banner">
+  <img class="banner-img" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=900&q=80&auto=format&fit=crop" alt="Shopping banner" onerror="zvFb(this)">
+  <div class="crumbs"><a href="#home">Home</a> › More</div>
+  <h1>▦ All Categories</h1>
+  <p>Browse everything Zenvora has to offer</p>
+</section>
+
+<section class="section">
+  <div class="more-grid">
+    <a class="more-tile" href="#fashion"><img class="more-img" src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=400&q=80&auto=format&fit=crop" alt="Fashion" loading="lazy" onerror="zvFb(this)"><span>Fashion</span><small>Trending styles for men, women and kids</small></a>
+    <a class="more-tile" href="#electronics"><img class="more-img" src="https://images.unsplash.com/photo-1498049794561-7780e7231661?w=400&q=80&auto=format&fit=crop" alt="Electronics" loading="lazy" onerror="zvFb(this)"><span>Electronics</span><small>Gadgets and gear at unbeatable prices</small></a>
+    <a class="more-tile" href="#home-living"><img class="more-img" src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80&auto=format&fit=crop" alt="Home and Living" loading="lazy" onerror="zvFb(this)"><span>Home &amp; Living</span><small>Make your space feel like home</small></a>
+    <a class="more-tile" href="#beauty"><img class="more-img" src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80&auto=format&fit=crop" alt="Beauty" loading="lazy" onerror="zvFb(this)"><span>Beauty</span><small>Skincare, makeup and grooming essentials</small></a>
+    <a class="more-tile" href="#sports"><img class="more-img" src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&q=80&auto=format&fit=crop" alt="Sports" loading="lazy" onerror="zvFb(this)"><span>Sports</span><small>Gear up for your next game or workout</small></a>
+    <a class="more-tile" href="#groceries"><img class="more-img" src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&q=80&auto=format&fit=crop" alt="Groceries" loading="lazy" onerror="zvFb(this)"><span>Groceries</span><small>Fresh and pantry staples delivered fast</small></a>
+    <a class="more-tile" href="#toys-baby"><img class="more-img" src="https://images.unsplash.com/photo-1558060370-d644479cb6f7?w=400&q=80&auto=format&fit=crop" alt="Toys and Baby" loading="lazy" onerror="zvFb(this)"><span>Toys &amp; Baby</span><small>Fun, safe and loved by little ones</small></a>
+    <a class="more-tile" href="#accessories"><img class="more-img" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80&auto=format&fit=crop" alt="Accessories" loading="lazy" onerror="zvFb(this)"><span>Accessories</span><small>Watches, bags, sunglasses and more</small></a>
+  </div>
+</section>
+</div>
+
+<footer class="site-foot">© 2026 Zenvora — Everything you want, one place.</footer>
+
+<div class="toast" id="toast"></div>
 <script src="script.js"></script>
+<script>
+(function () {
+  var views = document.querySelectorAll('.view');
+  var navLinks = document.querySelectorAll('.catnav a');
+  function route() {
+    var name = (location.hash || '#home').slice(1);
+    if (!document.getElementById('view-' + name)) name = 'home';
+    views.forEach(function (v) { v.hidden = (v.id !== 'view-' + name); });
+    navLinks.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + name); });
+    var b = document.querySelector('#view-' + name + ' .page-banner h1');
+    document.title = b ? b.textContent.trim() + ' — Zenvora' : 'Zenvora — Everything you want, one place';
+    try { window.scrollTo(0, 0); } catch (e) {}
+  }
+  window.addEventListener('hashchange', route);
+  window.addEventListener('load', route);
+  // capture-phase: keeps working even if script.js blocks link clicks
+  document.addEventListener('click', function (e) {
+    var t = e.target, name = null;
+    var a = t.closest ? t.closest('a[href^="#"]') : null;
+    var tile = t.closest ? t.closest('.cat-card[onclick]') : null;
+    if (a && a.getAttribute('href').length > 1) name = a.getAttribute('href').slice(1);
+    else if (tile) { var m = /hash='([a-z-]+)'/.exec(tile.getAttribute('onclick') || ''); if (m) name = m[1]; }
+    if (!name || !document.getElementById('view-' + name)) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    location.hash = name; route();
+  }, true);
+  route();
+
+  document.addEventListener('change', function (e) {
+    var sel = e.target;
+    if (!sel.classList || !sel.classList.contains('sort-select')) return;
+    var grid = sel.closest('.view').querySelector('[data-grid]');
+    if (!grid) return;
+    if (!grid.__orig) grid.__orig = Array.prototype.slice.call(grid.children);
+    var items = grid.__orig.slice();
+    if (sel.value === 'low') items.sort(function (x, y) { return x.dataset.price - y.dataset.price; });
+    if (sel.value === 'high') items.sort(function (x, y) { return y.dataset.price - x.dataset.price; });
+    items.forEach(function (el) { grid.appendChild(el); });
+  });
+})();
+</script>
+<script>
+/* Hero sliding banner */
+(function () {
+  var hero = document.querySelector('.hero');
+  if (!hero) return;
+  var track = hero.querySelector('.hero-track');
+  var slides = hero.querySelectorAll('.hero-slide');
+  var dots = hero.querySelectorAll('.hero-dots span');
+  var prev = hero.querySelector('.hero-arrow.left');
+  var next = hero.querySelector('.hero-arrow.right');
+  var i = 0, timer = null, startX = null;
+
+  function go(n) {
+    i = (n + slides.length) % slides.length;
+    track.style.transform = 'translateX(-' + (i * 100) + '%)';
+    dots.forEach(function (d, k) { d.classList.toggle('active', k === i); });
+  }
+  function start() { stop(); timer = setInterval(function () { go(i + 1); }, 4000); }
+  function stop() { if (timer) clearInterval(timer); }
+
+  prev.addEventListener('click', function () { go(i - 1); start(); });
+  next.addEventListener('click', function () { go(i + 1); start(); });
+  dots.forEach(function (d, k) { d.addEventListener('click', function () { go(k); start(); }); });
+  hero.addEventListener('mouseenter', stop);
+  hero.addEventListener('mouseleave', start);
+  hero.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; stop(); }, { passive: true });
+  hero.addEventListener('touchend', function (e) {
+    if (startX !== null) {
+      var dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) go(dx < 0 ? i + 1 : i - 1);
+    }
+    startX = null; start();
+  });
+  go(0); start();
+})();
+
+</script>
+
 </body>
 </html>
