@@ -1,3 +1,3 @@
 # E-comerse
 
-try my page : https://ecomsagar.netlify.app/
+try my page :https://sagar9628760650-eng.github.io/E-comerse/
